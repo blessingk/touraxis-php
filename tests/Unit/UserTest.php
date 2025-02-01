@@ -44,10 +44,11 @@ class UserTest extends TestCase
 
     public function test_can_user_not_found()
     {
-        $response = $this->getJson('/api/users/99999999999999999');
+        $userId = random_int(1, 99999999999999999);
+        $response = $this->getJson('/api/users/'.$userId);
         $response->assertStatus(404);
         $response->assertJson([
-            'error' => 'Resource not found',
+            'error' => 'Record not found',
         ]);
     }
 }
