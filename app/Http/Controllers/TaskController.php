@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\TaskRepositoryInterface;
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -18,19 +20,20 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(User $user): JsonResponse
     {
-        $tasks = $this->taskRepository->gatAllTasks();
-        return response()->json(['tasks' => $tasks]);
+        return response()->json($user->tasks);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreTaskRequest $request, User $user): JsonResponse
     {
-        $task = $this->taskRepository->createTask($request->all(['']));
-        return response()->json(['task' => $task]);
+
+        $data = array_merge($request->all(['name', 'description', 'next_execute_date_time']), ['user_id' => $user->id]);
+        $task = $this->taskRepository->createTask($data);
+        return response()->json($task, 201);
     }
 
     /**

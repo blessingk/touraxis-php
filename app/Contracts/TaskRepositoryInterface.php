@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 interface TaskRepositoryInterface
 {
-    public function gatAllTasks(): Collection;
+    public function getAllTasks(): Collection;
 
     public function getTasksByUser(User $user): Collection;
 

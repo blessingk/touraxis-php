@@ -13,7 +13,7 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * @return Collection
      */
-    public function gatAllTasks(): Collection
+    public function getAllTasks(): Collection
     {
         return Task::all();
     }

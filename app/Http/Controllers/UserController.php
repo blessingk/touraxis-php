@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         $users = $this->userRepository->getAllUsers();
-        return response()->json(['users' => $users]);
+        return response()->json($users);
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $data = $request->all(['username', 'first_name', 'last_name']);
         $user = $this->userRepository->createUser($data);
-        return response()->json(['user' => $user], 201);
+        return response()->json($user, 201);
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return response()->json(['user' => $user]);
+        return response()->json($user);
     }
 
     /**
